@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { Navbar, Sidebar } from '$lib/components/site';
 	import '../app.pcss';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <div class="h-[96vh]">
@@ -13,7 +18,7 @@
 		<div class="flex h-screen flex-col">
 			<Navbar />
 			<div class="mt-20 flex-grow">
-				<slot />
+				{@render children?.()}
 			</div>
 		</div>
 	</main>

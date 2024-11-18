@@ -5,19 +5,15 @@
 	import { onMount } from 'svelte';
 	import { Eye, EyeOff } from 'lucide-svelte';
 
-	let openaiShow = false;
-	let replicateShow = false;
+	let openaiShow = $state(false);
 
-	let openAiKey = '';
-	let replicateKey = '';
+	let openAiKey = $state('');
 
 	onMount(() => {
 		if (localStorage.getItem('openai')) {
 			openAiKey = localStorage.getItem('openai') as string;
 		}
-		if (localStorage.getItem('replicate')) {
-			replicateKey = localStorage.getItem('replicate') as string;
-		}
+
 	});
 </script>
 
@@ -45,35 +41,11 @@
 			</Button>
 		</div>
 	</div>
-	<div class="space-y-2">
-		<Label class="text-right">Replicate</Label>
-		<div class="flex items-center justify-between gap-4">
-			<Input
-				type={replicateShow ? 'text' : 'password'}
-				id="username"
-				bind:value={replicateKey}
-				class="col-span-3"
-			/>
-			<Button
-				on:click={() => (replicateShow = !replicateShow)}
-				size="sm"
-				class="size-9 p-2"
-				variant="secondary"
-			>
-				{#if replicateShow}
-					<Eye />
-				{:else}
-					<EyeOff />
-				{/if}
-			</Button>
-		</div>
-	</div>
 	<Button
 		type="submit"
 		class="w-fit"
 		on:click={() => {
 			localStorage.setItem('openai', openAiKey);
-			localStorage.setItem('replicate', replicateKey);
 		}}>Save</Button
 	>
 </div>

@@ -14,8 +14,7 @@
 			<div class={$page.url.pathname === route.href ? 'ml-2 border-0 shadow-none' : 'hidden'}>
 				<div class="flex items-center justify-between">
 					<div class="flex items-center justify-center gap-3">
-						<svelte:component
-							this={route.icon}
+						<route.icon
 							class={cn('h-8 w-8 rounded-lg p-1', route.color, route.background_color)}
 						/>
 						<div class="relative flex flex-col">

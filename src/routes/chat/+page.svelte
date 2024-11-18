@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { OpenAILogo } from '$lib/assets';
 	import { Button } from '$lib/components/ui/button';
@@ -31,14 +33,14 @@
 		model: string;
 		stream?: boolean;
 		messages: { role: string; content: string }[];
-	} = {
+	} = $state({
 		model: 'gpt-3.5-turbo',
 		stream: true,
 		messages: []
-	};
+	});
 
-	let userInput: string = '';
-	let loading: boolean = false;
+	let userInput: string = $state('');
+	let loading: boolean = $state(false);
 
 	function handleSubmit() {
 		if (userInput.length < 3) {
@@ -123,12 +125,12 @@
 			});
 	}
 
-	$: {
+	run(() => {
 		if (data.messages && data.messages.length > 0) {
 			const chatContent = document.getElementById('chatContent');
 			chatContent?.scrollIntoView({ behavior: 'smooth' });
 		}
-	}
+	});
 </script>
 
 <div class="h-full p-2">
@@ -165,11 +167,11 @@
 					{/if}
 				</div>
 			{/each}
-			<div id="chatContent" class="mb-32" />
+			<div id="chatContent" class="mb-32"></div>
 		</div>
 		<form
 			class="fixed bottom-0 right-0 mt-12 w-full bg-white p-3 pb-4 dark:bg-black"
-			on:submit={handleSubmit}
+			onsubmit={handleSubmit}
 		>
 			<div class="flex items-center justify-center gap-3 px-2 md:ml-72 md:px-10 md:pb-4">
 				<Textarea

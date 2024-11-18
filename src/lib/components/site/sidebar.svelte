@@ -27,7 +27,7 @@
 					)}
 				>
 					<div class="relative flex flex-1 items-center gap-2">
-						<svelte:component this={route.icon} class={cn('h-7 w-7', route.color)} />
+						<route.icon class={cn('h-7 w-7', route.color)} />
 						<div class="ml-2 flex w-full items-center justify-between">
 							<div>
 								{route.label}

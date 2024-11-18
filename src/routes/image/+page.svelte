@@ -7,16 +7,16 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 
-	let prompt = '';
-	let n = '1';
-	let resolution = '256x256';
-	let loading = false;
+	let prompt = $state('');
+	let n = $state('1');
+	let resolution = $state('256x256');
+	let loading = $state(false);
 
 	let result: {
 		data: {
 			url: string;
 		}[];
-	} | null = null;
+	} | null = $state(null);
 
 	function handleSubmit() {
 		if (!localStorage.getItem('openai')) {
@@ -123,14 +123,14 @@
 
 	<div class="mt-10 flex items-center justify-center">
 		{#if loading}
-			<span class="loader" />
+			<span class="loader"></span>
 		{:else if result}
 			<div class="mb-32 flex">
 				<div class="mt-8 flex flex-col gap-4 md:flex-row lg:px-32">
 					{#each result.data as src}
 						<Card.Card class="overflow-hidden rounded-xl">
 							<div class="relative aspect-square">
-								<!-- svelte-ignore a11y-img-redundant-alt -->
+								<!-- svelte-ignore a11y_img_redundant_alt -->
 								<img src={src.url} alt="Image" />
 							</div>
 							<Card.CardFooter class="p-2">
@@ -144,7 +144,7 @@
 				</div>
 			</div>
 		{:else}
-			<p />
+			<p></p>
 		{/if}
 	</div>
 </div>

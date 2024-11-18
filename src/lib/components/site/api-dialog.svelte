@@ -8,13 +8,18 @@
 
 	// function asyncget_env(name: string) {
 	//   return await invoke("get_env", { name });
-	// }
+	
 
-	export let open = false;
+	interface Props {
+		// }
+		open?: boolean;
+	}
 
-	let openaiShow = false;
+	let { open = $bindable(false) }: Props = $props();
 
-	let openAiKey = '';
+	let openaiShow = $state(false);
+
+	let openAiKey = $state('');
 
 	onMount(() => {
 		if (localStorage.getItem('openai')) {
